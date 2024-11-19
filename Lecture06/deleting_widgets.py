@@ -14,3 +14,5 @@ button = placeholder.button("Click me to delete", on_click=show_snow)
 # Clear the placeholder if the button is clicked
 if button:
     placeholder.empty()
+
+
