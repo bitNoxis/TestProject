@@ -4,7 +4,7 @@ import streamlit as st
 
 st.set_page_config(page_title="QR Code Generator", page_icon="🥶")
 
-st.image("images/test.jpg")
+st.image("./images/test.jpg")
 
 st.title("QR Code Generator")
 colour = st.color_picker("Pick A Color", "#00f900")
