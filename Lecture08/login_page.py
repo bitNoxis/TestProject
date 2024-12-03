@@ -30,23 +30,21 @@ def login_page():
         register_button = st.form_submit_button("Register")
 
     if login_button:
-        # connect to collection
-        # define the database
+        # Connect to collection
         db_name = 'streamlit'
-        # define the collection
         collection_name = 'user_registration_data'
         collection = connect_to_collection(db_name, collection_name)
 
-        # check username
-        user_data = pd.DataFrame(list(collection.find()))
-        user_names = list(user_data.username)
+        # Normalize input
+        user_name = user_name.strip().lower()
+        password = password.strip()
 
-        # check password
-        if user_name in user_names:
-            # this selects the password of the user that is entering information
-            registered_password = list(user_data[user_data.username == user_name].password)[0]
+        # Query MongoDB for matching user
+        user_record = collection.find_one({'username': user_name})
 
-            if password == registered_password:
+        if user_record:
+            # Validate password
+            if password == user_record['password']:
                 st.session_state.credentials_check = True
             else:
                 st.error("The username/password is not correct")
