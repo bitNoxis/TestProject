@@ -24,7 +24,7 @@ def login_page():
         st.markdown(f'<p style="font-size: 20px; color:grey">Hello! Please enter your log in info.'
                     f'<br>If this is your first time on my app then please click on the Register Button.</p>',
                     unsafe_allow_html=True)
-        user_name = st.text_input("Username", placeholder="Please enter your user name").lower()
+        user_name = st.text_input("Username", placeholder="Please enter your user name")
         password = st.text_input("Password", placeholder="Please enter your password", type="password")
         login_button = st.form_submit_button("Login")
         register_button = st.form_submit_button("Register")
@@ -38,7 +38,6 @@ def login_page():
         collection = connect_to_collection(db_name, collection_name)
 
         # check username
-        # read the data from the collection and identify user names
         user_data = pd.DataFrame(list(collection.find()))
         user_names = list(user_data.username)
 
