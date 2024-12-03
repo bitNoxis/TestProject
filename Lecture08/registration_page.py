@@ -15,7 +15,6 @@ def registration_page():
         age = st.number_input("Enter Age", min_value=18, step=1)
         pet = st.text_input("Enter Pet")
         submit_button = st.form_submit_button("Register")
-        back_to_login_button = st.form_submit_button("Back to Login")
 
     if submit_button:
         db_name = 'Test'
