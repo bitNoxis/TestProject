@@ -30,7 +30,7 @@ def login_page():
         register_button = st.form_submit_button("Register")
 
     if login_button:
-        # Connect to collection
+        # Connect to MongoDB
         db_name = 'streamlit'
         collection_name = 'user_registration_data'
         collection = connect_to_collection(db_name, collection_name)
@@ -39,12 +39,17 @@ def login_page():
         user_name = user_name.strip().lower()
         password = password.strip()
 
-        # Query MongoDB for matching user
-        user_record = collection.find_one({'username': user_name})
+        # Debug: Print user input
+        st.write(f"Input username: '{user_name}'")
+        st.write(f"Input password: '{password}'")
+
+        # Fetch record
+        user_record = collection.find_one({'username': {'$regex': f'^{user_name}$', '$options': 'i'}})
 
         if user_record:
-            # Validate password
-            if password == user_record['password']:
+            st.write(user_record)  # Debug: Print fetched record
+            registered_password = user_record['password']
+            if password == registered_password:
                 st.session_state.credentials_check = True
             else:
                 st.error("The username/password is not correct")
