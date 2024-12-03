@@ -3,7 +3,6 @@ import datetime
 import pandas as pd
 from helpers import connect_to_collection
 
-
 def registration_page():
     placeholder = st.empty()
 
@@ -18,11 +17,6 @@ def registration_page():
         submit_button = st.form_submit_button("Register")
         back_to_login_button = st.form_submit_button("Back to Login")
 
-    if back_to_login_button:
-        # Navigate back to login
-        st.session_state.count = 0
-        placeholder.empty()
-
     if submit_button:
         db_name = 'Test'
         collection_name = 'users'
@@ -32,12 +26,8 @@ def registration_page():
         user_data = pd.DataFrame(list(collection.find()))
         usernames = list(user_data.username)
 
-        if len(username) < 1 and len(password) < 1:
+        if len(username) < 1 or len(password) < 1:
             st.error("ENTER USERNAME AND PASSWORD", icon="⚠️")
-        elif len(username) < 1:
-            st.error("ENTER USERNAME", icon="⚠️")
-        elif len(password) < 1:
-            st.error("ENTER PASSWORD", icon="⚠️")
         elif password != repeat_password:
             st.warning("PASSWORDS DON'T MATCH", icon="⚠️")
         elif username in usernames:
@@ -50,12 +40,8 @@ def registration_page():
                 "name": name,
                 "age": age,
                 "pet": pet,
-                "created_at": datetime.datetime.now()
             }
 
-            # Write this document to the collection
             collection.insert_one(document)
-
-            # Clear everything and set credential check flag to True
             placeholder.empty()
-            st.title("Welcome New User")
+            st.success(f"Welcome, {username}! Registration successful.")
