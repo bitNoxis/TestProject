@@ -31,8 +31,8 @@ def login_page():
 
     if login_button:
         # Connect to MongoDB
-        db_name = 'streamlit'
-        collection_name = 'user_registration_data'
+        db_name = 'Test'
+        collection_name = 'users'
         collection = connect_to_collection(db_name, collection_name)
 
         # Normalize input
