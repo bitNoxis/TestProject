@@ -68,6 +68,5 @@ if st.session_state.count == 1:
 if st.session_state.credentials_check:
     placeholder.empty()  # clear everything
     st.title(f"Welcome Back!")
-    # place an image
     st.image(
         "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExbGpubGNsZnI5cXJicjNpcXBkNGFzNWFjNW1rdHJ4ZnJmbWpkeDhicCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9dg/NTsD5QdhUOrEyU3TGC/giphy.gif")
