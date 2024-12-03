@@ -1,3 +1,2 @@
 # requirements.txt
-
-pymong==4.10.1
+pymongo==4.10.1
