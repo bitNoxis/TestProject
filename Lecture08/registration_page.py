@@ -16,13 +16,19 @@ def registration_page():
         age = st.number_input("Enter Age", min_value=18, step=1)
         pet = st.text_input("Enter Pet")
         submit_button = st.form_submit_button("Register")
+        back_to_login_button = st.form_submit_button("Back to Login")
+
+    if back_to_login_button:
+        # Navigate back to login
+        st.session_state.count = 0
+        placeholder.empty()
 
     if submit_button:
         db_name = 'Test'
         collection_name = 'users'
         collection = connect_to_collection(db_name, collection_name)
 
-        # read the data from the collection and identify user names
+        # Read the data from the collection and identify user names
         user_data = pd.DataFrame(list(collection.find()))
         usernames = list(user_data.username)
 
@@ -33,22 +39,23 @@ def registration_page():
         elif len(password) < 1:
             st.error("ENTER PASSWORD", icon="⚠️")
         elif password != repeat_password:
-            st.warning("PASSWORDS DONT MATCH", icon="⚠️")
+            st.warning("PASSWORDS DON'T MATCH", icon="⚠️")
         elif username in usernames:
             st.warning("USERNAME ALREADY EXISTS", icon="🔥")
         else:
-            # create a document with the data we want to write to this collection
-            document = {"username": username,
-                        "password": password,
-                        "name": name,
-                        "age": age,
-                        "pet": pet,
-                        "created_at": datetime.datetime.now()}
+            # Create a document with the data we want to write to this collection
+            document = {
+                "username": username,
+                "password": password,
+                "name": name,
+                "age": age,
+                "pet": pet,
+                "created_at": datetime.datetime.now()
+            }
 
-            # write this document to the collection
+            # Write this document to the collection
             collection.insert_one(document)
 
-            # clear everything and set credential check flag to True
+            # Clear everything and set credential check flag to True
             placeholder.empty()
-            # option 2,
-            st.title(f"Welcome New User")
+            st.title("Welcome New User")
