@@ -30,7 +30,6 @@ def login_page():
         register_button = st.form_submit_button("Register")
 
     if login_button:
-        # Connect to MongoDB
         db_name = 'Test'
         collection_name = 'users'
         collection = connect_to_collection(db_name, collection_name)
@@ -68,7 +67,7 @@ if st.session_state.count == 1:
     registration_page()
 
 if st.session_state.credentials_check:
-    placeholder.empty()  # clear everything
-    st.title(f"Welcome Back!")
+    placeholder.empty()
+    st.title(f"Welcome back!")
     st.image(
         "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExbGpubGNsZnI5cXJicjNpcXBkNGFzNWFjNW1rdHJ4ZnJmbWpkeDhicCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9dg/NTsD5QdhUOrEyU3TGC/giphy.gif")
